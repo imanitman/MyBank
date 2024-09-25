@@ -5,7 +5,7 @@ spring.datasource.username=${DATABASE_USER:root}
 spring.datasource.password=${DATABASE_PASSWORD:123456}
 spring.jpa.show-sql=${JPA_SHOW_SQL:true}
 spring.jpa.properties.hibernate.format_sql=${HIBERNATE_FORMAT_SQL:true}
-spring.jpa.hibernate.ddl-auto=update
+
 ###FORMAT LOG PATTERNS
 logging.level.org.springframework.security=${SPRING_SECURITY_LOG_LEVEL:TRACE}
 logging.pattern.console=${LOGPATTERN_CONSOLE:%green(%d{HH:mm:ss.SSS}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %msg%n}
