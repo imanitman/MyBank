@@ -1,0 +1,13 @@
+spring.config.activate
+###
+spring.application.name=${SPRING_APP_NAME:SecureApp}
+### DATABASE
+spring.datasource.url=jdbc:mysql://${DATABASE_HOST:localhost}:${DATABASE_PORT:3308}/${DATABASE_NAME:bankApp}
+spring.datasource.username=${DATABASE_USER:root}
+spring.datasource.password=${DATABASE_PASSWORD:123456}
+spring.jpa.show-sql=${JPA_SHOW_SQL:false}
+spring.jpa.properties.hibernate.format_sql=${HIBERNATE_FORMAT_SQL:false}
+spring.jpa.hibernate.ddl-auto=update
+###FORMAT LOG PATTERNS
+logging.level.org.springframework.security=${SPRING_SECURITY_LOG_LEVEL:ERROR}
+logging.pattern.console=${LOGPATTERN_CONSOLE:%green(%d{HH:mm:ss.SSS}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %msg%n}
