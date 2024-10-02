@@ -1,5 +1,7 @@
 package com.example.secureApplication.config;
 
+import com.example.secureApplication.handleException.customAccessDeniedHandler;
+import com.example.secureApplication.handleException.customAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -28,7 +30,9 @@ public class ProjectSecurityConfiguration {
                             .requestMatchers("/notices","/contacts","/register").permitAll()
         );
         httpSecurity.formLogin(Customizer.withDefaults());
-        httpSecurity.httpBasic(Customizer.withDefaults());
+        httpSecurity.httpBasic(hbc -> hbc.authenticationEntryPoint(new customAuthenticationEntryPoint()));
+        // global exception handler because not only login throw error 401 but also other errors
+        httpSecurity.exceptionHandling(ehc -> ehc. accessDeniedHandler(new customAccessDeniedHandler()));
         return httpSecurity.build();
     }
 

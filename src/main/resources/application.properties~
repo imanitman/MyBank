@@ -8,7 +8,7 @@ spring.jpa.properties.hibernate.format_sql=${HIBERNATE_FORMAT_SQL:true}
 spring.jpa.hibernate.ddl-auto=update
 ###
 spring.config.import = application_prod.properties
-#spring.profiles.active=prod
+spring.profiles.active=prod
 ###FORMAT LOG PATTERNS
 logging.level.org.springframework.security=${SPRING_SECURITY_LOG_LEVEL:TRACE}
 logging.pattern.console=${LOGPATTERN_CONSOLE:%green(%d{HH:mm:ss.SSS}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %msg%n}

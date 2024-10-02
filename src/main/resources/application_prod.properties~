@@ -1,4 +1,4 @@
-spring.config.activate
+spring.config.activate.on-profile = prod
 ###
 spring.application.name=${SPRING_APP_NAME:SecureApp}
 ### DATABASE
@@ -11,3 +11,4 @@ spring.jpa.hibernate.ddl-auto=update
 ###FORMAT LOG PATTERNS
 logging.level.org.springframework.security=${SPRING_SECURITY_LOG_LEVEL:ERROR}
 logging.pattern.console=${LOGPATTERN_CONSOLE:%green(%d{HH:mm:ss.SSS}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %msg%n}
+### SESSION
