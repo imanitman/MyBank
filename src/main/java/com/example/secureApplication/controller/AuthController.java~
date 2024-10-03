@@ -5,8 +5,11 @@ import com.example.secureApplication.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -16,7 +19,7 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
-    public ResponseEntity<String> reagisterPage (Customer customer){
+    public ResponseEntity<String> reagisterPage (@RequestBody  Customer customer){
         try {
             if (customer != null){
                 customer.setPassword(passwordEncoder.encode(customer.getPassword()));
@@ -29,5 +32,10 @@ public class AuthController {
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error occurred here");
         }
+    }
+    @GetMapping("/testAccount")
+    public ResponseEntity<String> testAccount(Authentication authentication){
+        String name = authentication.getName();
+        return ResponseEntity.ok(name);
     }
 }

@@ -11,6 +11,11 @@ public class AuthenticationEvents {
 
     @EventListener
     public void onSuccess(AuthenticationSuccessEvent event) {
-        log
+        log.info("login successfull : {}", event.getAuthentication().getName());
+        response.redirect("/home");
+    }
+    @EventListener
+    public void onFailed(AuthenticationSuccessEvent event) {
+        log.info("login failed : {}", event.getAuthentication().getName());
     }
 }

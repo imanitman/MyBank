@@ -5,7 +5,9 @@ import com.example.secureApplication.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,5 +32,10 @@ public class AuthController {
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error occurred here");
         }
+    }
+    @GetMapping("/testAccount")
+    public ResponseEntity<String> testAccount(){
+        String name = "Nam Nguyen";
+        return ResponseEntity.ok(name);
     }
 }
