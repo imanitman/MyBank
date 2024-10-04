@@ -26,8 +26,8 @@ public class ProjectSecurityConfiguration {
         httpSecurity
                 .csrf(csrfConfig -> csrfConfig.disable())
                 .authorizeHttpRequests((request)->
-                request.requestMatchers("/balances","/cards","/loans", "/accounts").authenticated()
-                            .requestMatchers("/notices","/contacts","/register", "/testAccount").permitAll())
+                request.requestMatchers("/balances","/cards","/loans", "/accounts", "/user").authenticated()
+                            .requestMatchers("/notices","/contacts","/register").permitAll())
             .formLogin(Customizer.withDefaults())
 //  thay đổi tên biến mặc định mà spring dùng để lấy ra username và password
 //  .usernameParameter("username").passwordParameter("password")

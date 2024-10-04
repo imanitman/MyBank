@@ -14,9 +14,9 @@ import java.util.List;
 public class BalanceController {
     private final AccountTransactionRepository accountTransactionRepository;
     @GetMapping("/myBalances")
-    public List<AccountTransactions>  balancePage(@RequestParam long customerId){
+    public String balancePage(@RequestParam long customerId){
         List<AccountTransactions> accountTransactions = accountTransactionRepository.findByCustomerIdOrderByTransactionDtDesc(customerId);
         if (accountTransactions == null) return null;
-        else return accountTransactions;
+        else return accountTransactions
     }
 }

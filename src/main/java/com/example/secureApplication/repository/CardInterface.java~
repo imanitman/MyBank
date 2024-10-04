@@ -1,0 +1,11 @@
+package com.example.secureApplication.repository;
+
+import com.example.secureApplication.model.Cards;
+import org.springframework.data.repository.CrudRepository;
+
+import java.util.List;
+
+public interface CardInterface extends CrudRepository<Cards,Long> {
+    List<Cards> findByCustomerId(long customerId);
+    
+}

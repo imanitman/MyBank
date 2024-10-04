@@ -1,0 +1,8 @@
+package com.example.secureApplication.repository;
+
+import com.example.secureApplication.model.Accounts;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface AccountRepository extends JpqReqository<Accounts, Long> {
+}
