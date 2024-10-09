@@ -5,14 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "customers")
 @Getter @Setter
-public class Customer {
+@Table(name = "authorities")
+public class Authority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private  long id;
     private String name;
-    private String email;
-    private String password;
-    private String role;
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 }

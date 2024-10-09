@@ -50,8 +50,17 @@ public class ProjectSecurityConfigution {
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
                 .requiresChannel(rcc -> rcc.anyRequest().requiresInsecure()) // Only HTTP
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/myAccount", "/myBalance", "/myLoans", "/myCards", "/user").authenticated()
-                        .requestMatchers("/notices", "/contact", "/error", "/register", "/invalidSession").permitAll());
+//                        .requestMatchers("/myAccount").hasAuthority("Read Account")
+//                        .requestMatchers("/myBalance").hasAnyAuthority("Read Account", "Update Account")
+//                        .requestMatchers("/myLoans").hasAuthority("Read Loans")
+//                        .requestMatchers("/myCards").hasAuthority("Read Cards")
+//                        .requestMatchers( "/user").authenticated()
+                        .requestMatchers("/myAccount").hasRole("USER")
+                        .requestMatchers("/myBalance").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/myLoans").hasRole("USER")
+                        .requestMatchers("/myCards").hasRole("USER")
+                        .requestMatchers( "/user").authenticated()
+                        .requestMatchers("/notices", "/contact",  "/register").permitAll());
         http.formLogin(withDefaults());
         http.httpBasic(hbc -> hbc.authenticationEntryPoint(new customAuthenticationEntryPoint()));
         http.exceptionHandling(ehc -> ehc.accessDeniedHandler(new customAccessDeniedHandler()));
