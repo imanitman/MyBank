@@ -2,6 +2,7 @@ package com.example.secureApplication.config;
 
 
 import com.example.secureApplication.filter.CsrfCookieFilter;
+import com.example.secureApplication.filter.UsernameValidationFilter;
 import com.example.secureApplication.handleException.customAccessDeniedHandler;
 import com.example.secureApplication.handleException.customAuthenticationEntryPoint;
 import jakarta.servlet.http.HttpServletRequest;
@@ -48,6 +49,7 @@ public class ProjectSecurityConfigution {
                         .ignoringRequestMatchers( "/contact","/register")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
+                .addFilterBefore(new UsernameValidationFilter(), BasicAuthenticationFilter.class)
                 .requiresChannel(rcc -> rcc.anyRequest().requiresInsecure()) // Only HTTP
                 .authorizeHttpRequests((requests) -> requests
 //                        .requestMatchers("/myAccount").hasAuthority("Read Account")

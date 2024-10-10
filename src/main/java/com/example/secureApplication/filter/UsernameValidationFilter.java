@@ -1,0 +1,50 @@
+package com.example.secureApplication.filter;
+
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.util.StringUtils;
+
+import java.io.IOException;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
+public class UsernameValidationFilter implements Filter {
+    /**
+     * @param request  The request to process
+     * @param response The response associated with the request
+     * @param chain    Provides access to the next filter in the chain for this filter to pass the request and response
+     *                 to for further processing
+     * @throws IOException
+     * @throws ServletException
+     */
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
+        String header = req.getHeader(HttpHeaders.AUTHORIZATION) ;
+        if (header != null){
+            header = header.trim();
+            byte[] decoded;
+            if (StringUtils.startsWithIgnoreCase(header, "Basic ")){
+                byte[] base64Token = header.substring(6).getBytes(StandardCharsets.UTF_8);
+                decoded = Base64.getDecoder().decode(base64Token);
+                String token = new String(decoded,StandardCharsets.UTF_8);
+                int delim = token.indexOf(':');
+                if (delim == -1){throw new BadCredentialsException("Your request is invalid");}
+                else{
+                    String username = token.substring(0,delim);
+                    if (username.toLowerCase().contains("test")){
+                        throw new BadCredentialsException("Your request is invalid");
+                    }
+                }
+            }
+        }
+        chain.doFilter(request,response);
+    }
+}
