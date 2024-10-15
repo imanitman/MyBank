@@ -29,7 +29,6 @@ public class customUsernamePasswordAuthenticationProvider implements Authenticat
         String userPassword = authentication.getCredentials().toString();
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         return new UsernamePasswordAuthenticationToken(username, userPassword, userDetails.getAuthorities());
-
     }
 
     /**

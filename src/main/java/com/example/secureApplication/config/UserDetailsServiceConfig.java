@@ -27,9 +27,7 @@ public class UserDetailsServiceConfig implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
        Customer customer = customerRepository.findByEmail(username).orElseThrow(()->
        new UsernameNotFoundException("User not found"));
-
         List<GrantedAuthority> authorities = customer.getAuthorities().stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
        return new User(customer.getEmail(),customer.getPwd(),authorities);
     }
-
 }
